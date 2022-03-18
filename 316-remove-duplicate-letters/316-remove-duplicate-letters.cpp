@@ -4,8 +4,7 @@ class Solution
         string removeDuplicateLetters(string s)
         {
             int n = s.size();
-            vector<int> vis(26, 0);
-            unordered_map<int, int> cnt;
+            vector<int> vis(26, 0), cnt(26, 0);
             for (int i = 0; i < n; i++)
                 cnt[s[i] - 'a']++;
             stack<char> st;
