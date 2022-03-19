@@ -1,7 +1,6 @@
 class FreqStack
 {
     public:
-        stack<int> st;
     priority_queue<pair<pair<int, int>, int>> pq;
     unordered_map<int, int> freq;
     int t = 0;
@@ -11,7 +10,6 @@ class FreqStack
     {
         t++;
         freq[val]++;
-        st.push(val);
         pq.push({{ freq[val], t},val });
     }
 
