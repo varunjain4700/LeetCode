@@ -1,48 +1,52 @@
 class Solution
 {
     public:
-        vector<int> merge(vector<int> &left, vector<int> &right)
+        void mergesort(vector<int> &nums, int start, int end)
         {
-            vector<int> res;
-            int i = 0, j = 0;
-            int n = left.size(), m = right.size();
-            while (i < n && j < m)
+            if (start < end)
             {
-                if (left[i] < right[j])
-                {
-                    res.push_back(left[i]);
-                    i++;
-                }
-                else
-                {
-                    res.push_back(right[j]);
-                    j++;
-                }
+                int mid = (start + end) / 2;
+                mergesort(nums, start, mid);
+                mergesort(nums, mid + 1, end);
+                merge(nums, start, mid, end);
             }
-            while (i < n)
+        }
+    void merge(vector<int> &nums, int l, int mid, int r)
+    {
+        vector<int> res;
+        int i = l, j = mid + 1;
+        while (i <= mid && j <= r)
+        {
+            if (nums[i] < nums[j])
             {
-                res.push_back(left[i]);
+                res.push_back(nums[i]);
                 i++;
             }
-            while (j < m)
+            else
             {
-                res.push_back(right[j]);
+                res.push_back(nums[j]);
                 j++;
             }
-            return res;
         }
+        while (i <= mid)
+        {
+            res.push_back(nums[i]);
+            i++;
+        }
+        while (j <= r)
+        {
+            res.push_back(nums[j]);
+            j++;
+        }
+        int k = 0;
+        for (int i = l; i <= r; i++)
+        {
+            nums[i] = res[k++];
+        }
+    }
     vector<int> sortArray(vector<int> &nums)
     {
-        int n = nums.size();
-        if (n < 2)
-            return nums;
-        vector<int> left,right;
-        for (int i = 0; i < n / 2; i++)
-            left.push_back(nums[i]);
-        for (int i = n / 2; i < n; i++)
-            right.push_back(nums[i]);
-        vector<int> a = sortArray(left);
-        vector<int> b = sortArray(right);
-        return merge(a, b);
+        mergesort(nums, 0, nums.size() - 1);
+        return nums;
     }
 };
