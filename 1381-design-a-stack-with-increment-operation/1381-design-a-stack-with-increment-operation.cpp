@@ -2,6 +2,7 @@ class CustomStack
 {
     public:
         stack<int> st;
+    int inc[1001] = { 0 };
     int max_size = 0;
     CustomStack(int maxSize)
     {
@@ -20,29 +21,20 @@ class CustomStack
         if (st.empty())
             return -1;
         int num = st.top();
+        int extra = inc[st.size()];
+        inc[st.size() - 1] += inc[st.size()];
+        inc[st.size()] = 0;
         st.pop();
-        return num;
+        return num + extra;
     }
 
     void increment(int k, int val)
     {
        	//increment bottom k elements of stack by val
-        vector<int> temp;
-        while (!st.empty())
-        {
-            temp.push_back(st.top());
-            st.pop();
-        }
-        int idx = temp.size() - 1;
-        while (k > 0 && idx >= 0)
-        {
-            temp[idx] += val;
-            k--;
-            idx--;
-        }
-        int n = temp.size() - 1;
-        for (int i = n; i >= 0; i--)
-            st.push(temp[i]);
+        if (st.size() < k)
+            inc[st.size()] += val;
+        else
+            inc[k] += val;
     }
 };
 
