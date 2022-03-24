@@ -8,16 +8,16 @@ class Solution
             int i = 0, j = n - 1, ans = 0;
             while (i <= j)
             {
+                ++ans;
                 if (i == j)
-                    i++;
+                    ++i;
                 else if (people[i] + people[j] > limit)
-                    j--;
+                    --j;
                 else
                 {
-                    i++;
-                    j--;
+                    ++i;
+                    --j;
                 }
-                ans++;
             }
             return ans;
         }
