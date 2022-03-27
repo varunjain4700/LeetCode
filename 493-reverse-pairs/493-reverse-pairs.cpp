@@ -15,21 +15,31 @@ class Solution
     void merge(vector<int> &nums, int low, int high)
     {
         vector<int> res(high - low + 1);
-        int smallerToRight = 0;
         int mid = (low + high) / 2;
         int i = low, j = mid + 1, k = 0;
         while (i <= mid && j <= high)
         {
             if ((long long) 2 *nums[j] < (long long) nums[i])
             {
-                smallerToRight++;
+                cnt += (mid - i + 1);
+                ++j;
+            }
+            else
+            {
+                ++i;
+            }
+        }
+        i = low, j = mid + 1;
+        while (i <= mid && j <= high)
+        {
+            if (nums[j] < nums[i])
+            {
                 res[k] = nums[j];
                 ++k;
                 ++j;
             }
             else
             {
-                cnt += smallerToRight;
                 res[k] = nums[i];
                 ++k;
                 ++i;
@@ -37,14 +47,12 @@ class Solution
         }
         while (j <= high)
         {
-            smallerToRight++;
             res[k] = nums[j];
             ++k;
             ++j;
         }
         while (i <= mid)
         {
-            cnt += smallerToRight;
             res[k] = nums[i];
             ++k;
             ++i;
@@ -55,8 +63,10 @@ class Solution
         for (int i = low; i <= high; i++)
         {
             nums[i] = res[k++];
+           // cout << nums[i] << " ";
         }
-        sort(nums.begin() + low, nums.begin() + high + 1);
+        //cout << endl;
+       	// sort(nums.begin() + low, nums.begin() + high + 1);
     }
     int reversePairs(vector<int> &nums)
     {
