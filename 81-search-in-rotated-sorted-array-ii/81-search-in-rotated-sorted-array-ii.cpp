@@ -6,19 +6,21 @@ class Solution
             int low = 0, high = nums.size() - 1, mid;
             while (low <= high)
             {
+                while (low < high && nums[low] == nums[low + 1])
+                    low++;
+                while (low < high && nums[high] == nums[high - 1])
+                    high--;
                 mid = (low + high) / 2;
                	//cout<<low<<" "<<high<<endl;
                 if (target == nums[mid])
                     return true;
-                if (nums[low] < nums[mid])
+                if (nums[low] <= nums[mid])
                 {
                     if (target >= nums[low] && target <= nums[mid])
                         high = mid - 1;
                     else
                         low = mid + 1;
                 }
-                else if (nums[mid] == nums[low])
-                    low++;
                 else
                 {
                     if (target >= nums[mid] && target <= nums[high])
