@@ -4,8 +4,8 @@ class Solution
         vector<vector < int>> findWinners(vector<vector < int>> &nums)
         {
             int n = nums.size();
-            vector<vector < int>> ans(2, vector<int> ());
-            vector<int> win(1e5+5,0), lose(1e5+5,0);
+            vector<int> a1, a2;
+            vector<int> win(1e5 + 5, 0), lose(1e5 + 5, 0);
             int maxm = 0;
             for (int i = 0; i < n; i++)
             {
@@ -18,10 +18,13 @@ class Solution
             for (int i = 1; i <= maxm; i++)
             {
                 if (win[i] > 0 && lose[i] == 0)
-                    ans[0].push_back(i);
+                    a1.push_back(i);
                 if (lose[i] == 1)
-                    ans[1].push_back(i);
+                    a2.push_back(i);
             }
+            vector<vector < int>> ans = { a1,
+                a2
+            };
             return ans;
         }
 };
