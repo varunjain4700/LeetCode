@@ -5,7 +5,7 @@ class Solution
         {
             int n = nums.size();
             vector<int> pre(n, 0), suff(n, 0);
-            map<int, int> p, s;
+            unordered_map<int, int> p, s;
             pre[0] = nums[0];
             p[pre[0]] = 1;
             for (int i = 1; i < n; i++)
