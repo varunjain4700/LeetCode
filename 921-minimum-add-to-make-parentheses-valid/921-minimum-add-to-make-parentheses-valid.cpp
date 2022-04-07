@@ -4,21 +4,21 @@ class Solution
         int minAddToMakeValid(string s)
         {
             int n = s.size();
-            stack<int> st;
+            int cnt = 0;
             int ans = 0;
             for (int i = 0; i < n; i++)
             {
                 if (s[i] == '(')
-                    st.push(i);
+                    cnt++;
                 else
                 {
-                    if (st.empty())
+                    if (cnt <= 0)
                         ans++;
                     else
-                        st.pop();
+                        cnt--;
                 }
             }
-            ans += st.size();
+            ans += cnt;
             return ans;
         }
 };
