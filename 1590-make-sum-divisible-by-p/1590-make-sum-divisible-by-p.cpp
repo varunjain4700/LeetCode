@@ -1,6 +1,13 @@
 class Solution
 {
     public:
+       	//pre[0...i] denotes the prefix sum till index i
+       	// x--->sum of subarray that needs to be deleted 
+       	//(total_sum-x)%p=0 
+       	//pre[n]%p-(pre[0...i]-pre[0...j])%p=0
+       	//pre[0...j]%p=pre[n]%p-pre[0...i]%p
+       	//adding p as it may be possible that rhs may become negative
+       	//pre[0..j]%p=(pre[n]%p-pre[0..i]%p+p)%p
         int minSubarray(vector<int> &nums, int k)
         {
             long long n = nums.size(), total = 0;
