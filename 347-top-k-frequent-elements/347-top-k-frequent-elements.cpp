@@ -12,18 +12,10 @@ class Solution
             }
             for (auto it: freq)
             {
-                if (pq.size() == k)
-                {
-                    if (freq[it.first] > pq.top().first)
-                    {
-                        pq.pop();
-                        pq.push({ it.second,
-                            it.first });
-                    }
-                }
-                else
-                    pq.push({ it.second,
-                        it.first });
+                pq.push({ it.second,
+                    it.first });
+                if (pq.size() > k)
+                    pq.pop();
             }
             vector<int> res;
             while (!pq.empty())
