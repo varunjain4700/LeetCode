@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        long long solve(int idx, int k, vector<vector < int>> &events, vector< int > &start_time, vector< vector<long long>> &dp)
+        long long solve(int idx, int k, vector<vector < int>> &events, vector< int > &start_time, vector< vector<int>> &dp)
         {
             if (idx == events.size() || k <= 0)
                 return 0;
@@ -23,7 +23,7 @@ class Solution
     {
         sort(events.begin(), events.end());
         int n = events.size();
-        vector<vector < long long>> dp(n + 1, vector<long long> (k + 1, -1));
+        vector<vector <int>> dp(n + 1, vector<int> (k + 1, -1));
         vector<int> start_time(n, 0);
         for (int i = 0; i < n; i++)
             start_time[i] = events[i][0];
