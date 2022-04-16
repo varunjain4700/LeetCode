@@ -12,20 +12,20 @@
 class Solution
 {
     public:
-        int solve(TreeNode *root, int &sum)
-        {
-            if (root == NULL)
-                return 0;
-            solve(root->right, sum);
-            sum += root->val;
-            root->val = sum;
-            solve(root->left, sum);
-            return sum;
-        }
+        int sum = 0;
+    void solve(TreeNode *root)
+    {
+        if (root == NULL)
+            return;
+        solve(root->right);
+        sum += root->val;
+        root->val = sum;
+        solve(root->left);
+    }
     TreeNode* convertBST(TreeNode *root)
     {
-        int sum = 0;
-        int k = solve(root, sum);
+        sum = 0;
+        solve(root);
         return root;
     }
 };
