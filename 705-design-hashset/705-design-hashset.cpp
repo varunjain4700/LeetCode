@@ -5,7 +5,7 @@ class MyHashSet
     int size;
     MyHashSet()
     {
-        size = 100;
+        size = 1000;
         mp.resize(size);
     }
     int hash(int key)
