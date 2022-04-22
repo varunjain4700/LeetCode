@@ -1,25 +1,40 @@
 class MyHashSet
 {
     public:
-        vector<bool> arr;
+        vector<list < int>> mp;
+    int size;
     MyHashSet()
     {
-        arr.resize(1e6 + 1, 0);
+        size = 100;
+        mp.resize(size);
     }
-
+    int hash(int key)
+    {
+        return key % size;
+    }
+    list<int>::iterator search(int key)
+    {
+        int i = hash(key);
+        return find(mp[i].begin(), mp[i].end(), key);
+    }
     void add(int key)
     {
-        arr[key] = 1;
+        if (contains(key))
+            return;
+        mp[hash(key)].push_back(key);
     }
 
     void remove(int key)
     {
-        arr[key] = 0;
+        if (!contains(key))
+            return;
+        mp[hash(key)].erase(search(key));
     }
 
     bool contains(int key)
     {
-        if (arr[key])
+        int i = hash(key);
+        if (search(key) != mp[i].end())
             return true;
         return false;
     }
