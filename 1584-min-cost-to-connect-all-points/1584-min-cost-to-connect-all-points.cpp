@@ -1,6 +1,7 @@
 class Solution
 {
     public:
+       	// weird TLE issue: when I use adjacency list as vector<vector < int>> ,I get TLE on last test case while it passes when I change it to vector<pair<pair<int,int>,int>>
         vector<int> par, size;
     void init(int n)
     {
