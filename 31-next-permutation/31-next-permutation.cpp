@@ -4,24 +4,25 @@ class Solution
         void nextPermutation(vector<int> &nums)
         {
             int n = nums.size();
-            for (int i = n - 2; i >= 0; i--)
+            int i, idx2, idx1 = -1;
+            for (int i = n - 1; i >= 0; i--)
             {
-                int minm = 101, idx = -1;
-                for (int j = i + 1; j < n; j++)
+                for (int j = i - 1; j >= 0; j--)
                 {
-                    if (nums[j] > nums[i] && nums[j] <= minm)
+                    if (nums[j] < nums[i] && j > idx1)
                     {
-                        minm = nums[j];
-                        idx = j;
+                        idx1 = max(idx1, j);
+                        idx2 = i;
+                        break;
                     }
                 }
-                if (minm != 101)
-                {
-                    swap(nums[i], nums[idx]);
-                    reverse(nums.begin() + i + 1, nums.end());
-                    return;
-                }
             }
-            reverse(nums.begin(), nums.end());
+            if (idx1 == -1)
+            {
+                sort(nums.begin(), nums.end());
+                return;
+            }
+            swap(nums[idx1], nums[idx2]);
+            sort(nums.begin() + idx1 + 1, nums.end());
         }
 };
