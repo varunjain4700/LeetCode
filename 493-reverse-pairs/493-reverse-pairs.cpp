@@ -14,7 +14,7 @@ class Solution
     }
     void merge(int low, int high, vector<int> &nums)
     {
-        vector<int> ans(high - low + 1, 0);
+       	// vector<int> ans(high - low + 1, 0);
         int mid = (low + high) / 2;
         int i = low, j = mid + 1, k = 0;
         int smallerToRight = 0;
@@ -23,23 +23,26 @@ class Solution
             if (nums[i] > (long long) 2 *nums[j])
             {
                 smallerToRight++;
-                ans[k++] = nums[j++];
+                j++;
+               	// ans[k++] = nums[j++];
             }
             else
             {
                 cnt += smallerToRight;
-                ans[k++] = nums[i++];
+                i++;
+               	// ans[k++] = nums[i++];
             }
         }
         while (i <= mid)
         {
             cnt += smallerToRight;
-            ans[k++] = nums[i++];
+            i++;
+           	// ans[k++] = nums[i++];
         }
-        while (j <= high)
-        {
-            ans[k++] = nums[j++];
-        }
+       	// while (j <= high)
+       	// {
+       	//     ans[k++] = nums[j++];
+       	// }
 
         sort(nums.begin() + low, nums.begin() + high + 1);
     }
