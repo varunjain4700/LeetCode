@@ -4,22 +4,17 @@ class Solution
         bool searchMatrix(vector<vector < int>> &mat, int target)
         {
             int n = mat.size(), m = mat[0].size();
-            for (int i = 0; i < n; i++)
+            int low = 0, high = m *n - 1;
+            while (low <= high)
             {
-                if (target >= mat[i][0] && target <= mat[i][m - 1])
-                {
-                    int low = 0, high = m - 1, mid;
-                    while (low <= high)
-                    {
-                        mid = (low + high) / 2;
-                        if (target == mat[i][mid])
-                            return true;
-                        if (target < mat[i][mid])
-                            high = mid - 1;
-                        else
-                            low = mid + 1;
-                    }
-                }
+                int mid = (low + high) / 2;
+                int num = mat[mid / m][mid % m];	//(mid/m) gives the row and mid%m gives the column
+                if (num == target)
+                    return true;
+                if (num > target)
+                    high = mid - 1;
+                else
+                    low = mid + 1;
             }
             return false;
         }
