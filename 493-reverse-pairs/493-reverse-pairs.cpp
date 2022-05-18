@@ -2,77 +2,51 @@ class Solution
 {
     public:
         int cnt = 0;
-    void sortArray(vector<int> &nums, int low, int high)
+    void sort_arr(int low, int high, vector<int> &nums)
     {
+        int mid = (low + high) / 2;
         if (low < high)
         {
-            int mid = (low + high) / 2;
-            sortArray(nums, low, mid);
-            sortArray(nums, mid + 1, high);
-            merge(nums, low, high);
+            sort_arr(low, mid, nums);
+            sort_arr(mid + 1, high, nums);
+            merge(low, high, nums);
         }
     }
-    void merge(vector<int> &nums, int low, int high)
+    void merge(int low, int high, vector<int> &nums)
     {
-        vector<int> res(high - low + 1);
+        vector<int> ans(high - low + 1, 0);
         int mid = (low + high) / 2;
         int i = low, j = mid + 1, k = 0;
+        int smallerToRight = 0;
         while (i <= mid && j <= high)
         {
-            if ((long long) 2 *nums[j] < (long long) nums[i])
+            if (nums[i] > (long long) 2 *nums[j])
             {
-                cnt += (mid - i + 1);
-                ++j;
+                smallerToRight++;
+                ans[k++] = nums[j++];
             }
             else
             {
-                ++i;
+                cnt += smallerToRight;
+                ans[k++] = nums[i++];
             }
-        }
-        i = low, j = mid + 1;
-        while (i <= mid && j <= high)
-        {
-            if (nums[j] < nums[i])
-            {
-                res[k] = nums[j];
-                ++k;
-                ++j;
-            }
-            else
-            {
-                res[k] = nums[i];
-                ++k;
-                ++i;
-            }
-        }
-        while (j <= high)
-        {
-            res[k] = nums[j];
-            ++k;
-            ++j;
         }
         while (i <= mid)
         {
-            res[k] = nums[i];
-            ++k;
-            ++i;
+            cnt += smallerToRight;
+            ans[k++] = nums[i++];
         }
-       	// cout << low << " " << high << endl;
-       	// cout << cnt << endl;
-        k = 0;
-        for (int i = low; i <= high; i++)
+        while (j <= high)
         {
-            nums[i] = res[k++];
-           // cout << nums[i] << " ";
+            ans[k++] = nums[j++];
         }
-        //cout << endl;
-       	// sort(nums.begin() + low, nums.begin() + high + 1);
+
+        sort(nums.begin() + low, nums.begin() + high + 1);
     }
     int reversePairs(vector<int> &nums)
     {
-        int n = nums.size();
         cnt = 0;
-        sortArray(nums, 0, n - 1);
+        sort_arr(0, nums.size() - 1, nums);
         return cnt;
     }
 };
