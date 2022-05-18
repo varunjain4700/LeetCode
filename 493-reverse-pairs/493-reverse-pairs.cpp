@@ -14,7 +14,7 @@ class Solution
     }
     void merge(int low, int high, vector<int> &nums)
     {
-       	// vector<int> ans(high - low + 1, 0);
+        vector<int> ans(high - low + 1, 0);
         int mid = (low + high) / 2;
         int i = low, j = mid + 1, k = 0;
         int smallerToRight = 0;
@@ -24,27 +24,37 @@ class Solution
             {
                 smallerToRight++;
                 j++;
-               	// ans[k++] = nums[j++];
             }
             else
             {
                 cnt += smallerToRight;
                 i++;
-               	// ans[k++] = nums[i++];
             }
         }
         while (i <= mid)
         {
             cnt += smallerToRight;
             i++;
-           	// ans[k++] = nums[i++];
         }
-       	// while (j <= high)
-       	// {
-       	//     ans[k++] = nums[j++];
-       	// }
-
-        sort(nums.begin() + low, nums.begin() + high + 1);
+        i = low, j = mid + 1, k = 0;
+        while (i <= mid && j <= high)
+        {
+            if (nums[i] > nums[j])
+                ans[k++] = nums[j++];
+            else
+                ans[k++] = nums[i++];
+        }
+        while (i <= mid)
+        {
+            ans[k++] = nums[i++];
+        }
+        while (j <= high)
+        {
+            ans[k++] = nums[j++];
+        }
+        k = 0;
+        for (int i = low; i <= high; i++)
+            nums[i] = ans[k++];
     }
     int reversePairs(vector<int> &nums)
     {
