@@ -3,8 +3,8 @@ class Solution
     public:
         int lengthOfLongestSubstring(string s)
         {
-            int n = s.size();
-            map<char, int> mp;
+            int n = s.size();   
+            vector<int>mp(256,0);
             int j = 0, ans = 0;
             for (int i = 0; i < n; i++)
             {
