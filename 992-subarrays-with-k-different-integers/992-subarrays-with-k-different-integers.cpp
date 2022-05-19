@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        int solve(int n, vector<int> nums, int k)
+        int solve(int n, vector<int>&nums, int k)
         {
             int res = 0;
             int i = 0, j = 0;
