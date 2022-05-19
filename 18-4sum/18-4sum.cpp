@@ -5,39 +5,43 @@ class Solution
         {
             int n = nums.size();
             sort(nums.begin(), nums.end());
-            vector<vector < int>> res;
-            for (int i = 0; i < n - 3; i++)
+            vector<vector < int>> ans;
+            int i = 0;
+            while (i < n - 3)
             {
-                for (int j = i + 1; j < n - 2; j++)
+                int j = i + 1;
+                while (j < n - 2)
                 {
                     int sum = target - nums[i] - nums[j];
                     int k = j + 1, l = n - 1;
                     while (k < l)
                     {
-                        if (nums[k] + nums[l] > sum)
+                        if (nums[k] + nums[l] == sum)
+                        {
+                            ans.push_back({ nums[i],
+                                nums[j],
+                                nums[k],
+                                nums[l] });
+                            k++;
                             l--;
+                            while (k < l && nums[k] == nums[k - 1])
+                                k++;
+                            while (k < l && nums[l] == nums[l + 1])
+                                l--;
+                        }
                         else if (nums[k] + nums[l] < sum)
                             k++;
                         else
-                        {
-                            vector<int> ans = { nums[i],
-                                nums[j],
-                                nums[k],
-                                nums[l]
-                            };
-                            res.push_back(ans);
-                            while (k < l && nums[k] == ans[2])
-                                k++;
-                            while (k < l && nums[l] == ans[3])
-                                l--;
-                        }
+                            l--;
                     }
-                    while (j + 1 < n && nums[j] == nums[j + 1])
+                    j++;
+                    while (j < n - 2 && nums[j] == nums[j - 1])
                         j++;
                 }
-                while (i + 1 < n && nums[i] == nums[i + 1])
+                i++;
+                while (i < n - 3 && nums[i] == nums[i - 1])
                     i++;
             }
-            return res;
+            return ans;
         }
 };
