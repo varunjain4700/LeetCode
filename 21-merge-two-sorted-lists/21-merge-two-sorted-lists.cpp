@@ -30,17 +30,13 @@ class Solution
                     l2 = l2->next;
                 }
             }
-            while (l1)
+            if (l1)
             {
                 temp->next = l1;
-                temp = l1;
-                l1 = l1->next;
             }
-            while (l2)
+            if (l2)
             {
                 temp->next = l2;
-                temp = l2;
-                l2 = l2->next;
             }
             return dummy->next;
         }
