@@ -1,9 +1,9 @@
 /**
  *Definition for singly-linked list.
  *struct ListNode {
- *  int val;
- *  ListNode * next;
- *  ListNode(int x) : val(x), next(NULL) {}
+ *int val;
+ *ListNode * next;
+ *ListNode(int x) : val(x), next(NULL) {}
  *};
  */
 class Solution
@@ -13,15 +13,18 @@ class Solution
         {
             ListNode *l1 = head1, *l2 = head2;
             int len1 = 0, len2 = 0;
-            while (l1 != NULL)
+            while (l1 || l2)
             {
-                l1 = l1->next;
-                len1++;
-            }
-            while (l2 != NULL)
-            {
-                l2 = l2->next;
-                len2++;
+                if (l1)
+                {
+                    l1 = l1->next;
+                    len1++;
+                }
+                if (l2)
+                {
+                    l2 = l2->next;
+                    len2++;
+                }
             }
             l1 = head1, l2 = head2;
             if (len2 > len1)
