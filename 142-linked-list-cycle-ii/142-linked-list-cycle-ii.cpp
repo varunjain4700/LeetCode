@@ -1,36 +1,36 @@
 /**
  *Definition for singly-linked list.
  *struct ListNode {
- *  int val;
- *  ListNode * next;
- *  ListNode(int x) : val(x), next(NULL) {}
+ *   int val;
+ *   ListNode * next;
+ *   ListNode(int x) : val(x), next(NULL) {}
  *};
  */
 class Solution
 {
     public:
-        ListNode* removeloop(ListNode *head, ListNode *ptr)
+        ListNode* detectCycle(ListNode *head)
         {
-            while (head != ptr)
+            ListNode *slow = head, *fast = head;
+            ListNode *meet = NULL;
+            while (fast && fast->next)
             {
-                head = head->next;
-                ptr = ptr->next;
+                slow = slow->next;
+                fast = fast->next->next;
+                if (slow == fast)
+                {
+                    meet = slow;
+                    break;
+                }
             }
-            return ptr;
-        }
-    ListNode* detectCycle(ListNode *head)
-    {
-        ListNode *slow = head;
-        ListNode *fast = head;
-        while (slow && fast && fast->next)
-        {
-            slow = slow->next;
-            fast = fast->next->next;
-            if (slow == fast)
+            if (!meet)
+                return NULL;
+            slow = head;
+            while (slow != fast)
             {
-                return removeloop(head, slow);
+                slow = slow->next;
+                fast = fast->next;
             }
+            return slow;
         }
-        return NULL;
-    }
 };
