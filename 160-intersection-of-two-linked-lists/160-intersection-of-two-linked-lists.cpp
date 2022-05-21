@@ -12,39 +12,54 @@ class Solution
         ListNode* getIntersectionNode(ListNode *head1, ListNode *head2)
         {
             ListNode *l1 = head1, *l2 = head2;
-            int len1 = 0, len2 = 0;
-            while (l1 || l2)
+            while (l1 != l2)
             {
-                if (l1)
-                {
+                if (l1 == NULL)
+                    l1 = head2;
+                else
                     l1 = l1->next;
-                    len1++;
-                }
-                if (l2)
-                {
+                if (l2 == NULL)
+                    l2 = head1;
+                else
                     l2 = l2->next;
-                    len2++;
-                }
-            }
-            l1 = head1, l2 = head2;
-            if (len2 > len1)
-            {
-                swap(l2, l1);
-                swap(len1, len2);
-            }
-            int cnt = 0;
-            while (cnt != len1 - len2)
-            {
-                l1 = l1->next;
-                cnt++;
-            }
-            while (l1 && l2)
-            {
-                if (l1 == l2)
-                    return l1;
-                l1 = l1->next;
-                l2 = l2->next;
             }
             return l1;
+
+           	//Calculating length of both the linked lists
+           	// ListNode *l1 = head1, *l2 = head2;
+           	// int len1 = 0, len2 = 0;
+           	// while (l1 || l2)
+           	// {
+           	//     if (l1)
+           	//     {
+           	//         l1 = l1->next;
+           	//         len1++;
+           	//     }
+           	//     if (l2)
+           	//     {
+           	//         l2 = l2->next;
+           	//         len2++;
+           	//     }
+           	// }
+           	// l1 = head1, l2 = head2;
+           	// if (len2 > len1)
+           	// {
+           	//     swap(l2, l1);
+           	//     swap(len1, len2);
+           	// }
+           	// int cnt = 0;
+           	// while (cnt != len1 - len2)
+           	// {
+           	//     l1 = l1->next;
+           	//     cnt++;
+           	// }
+           	// while (l1 && l2)
+           	// {
+           	//     if (l1 == l2)
+           	//         return l1;
+           	//     l1 = l1->next;
+           	//     l2 = l2->next;
+           	// }
+           	// return l1;
         }
 };
