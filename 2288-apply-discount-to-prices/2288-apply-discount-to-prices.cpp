@@ -54,21 +54,21 @@ class Solution
                     long double num = cal(d);
                     long double ans = (disc *num) / 100.0;
                     num -= ans;
-                    string str = to_string(num);
-                    num = round(num *100.0) / 100.0;
-                    string num_text = to_string(num);
-                    string temp = num_text.substr(0, num_text.find(".") + 3);
-                   	// string temp;
-                   	// int m = str.size();
-                   	// int k = 0;
-                   	// while (str[k] != '.')
-                   	// {
-                   	//     temp += str[k];
-                   	//     k++;
-                   	// }
-                   	// temp += str[k];
-                   	// temp += str[k + 1];
-                   	// temp += str[k + 2];
+                     string str = to_string(num);
+                    // num = round(num *100.0) / 100.0;
+                    // string num_text = to_string(num);
+                    // string temp = num_text.substr(0, num_text.find(".") + 3);
+                   	string temp;
+                   	int m = str.size();
+                   	int k = 0;
+                   	while (str[k] != '.')
+                   	{
+                   	    temp += str[k];
+                   	    k++;
+                   	}
+                   	temp += str[k];
+                   	temp += str[k + 1];
+                   	temp += str[k + 2];
                     res += temp;
                     if (i < n)
                         res += s[i];
