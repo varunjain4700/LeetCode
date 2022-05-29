@@ -52,7 +52,7 @@ class Solution
                 if (!d.empty() && !flag)
                 {
                     long double num = cal(d);
-                    long double ans = (disc *num) / 100.0;
+                    long double ans = (long double)(disc *num) / 100;
                     num -= ans;
                      string str = to_string(num);
                     // num = round(num *100.0) / 100.0;
