@@ -12,21 +12,20 @@ class Solution
         0
     };
     bool vis[16][16];
-    void solve(int x, int y, vector<vector < int>> &grid, int m, int n, int sum, int &res)
+    int solve(int x, int y, vector<vector < int>> &grid, int m, int n)
     {
+        int res = 0;
+        vis[x][y] = 1;
         for (int i = 0; i < 4; i++)
         {
             int xx = x + dx[i], yy = y + dy[i];
             if (xx >= 0 && xx < m && yy >= 0 && yy < n && !vis[xx][yy] && grid[xx][yy] != 0)
             {
-                vis[xx][yy] = 1;
-                sum += grid[xx][yy];
-                res = max(res, sum);
-                solve(xx, yy, grid, m, n, sum, res);
-                vis[xx][yy] = 0;
-                sum -= grid[xx][yy];
+                res = max(res, grid[xx][yy] + solve(xx, yy, grid, m, n));
             }
         }
+        vis[x][y] = 0;
+        return res;
     }
     int getMaximumGold(vector<vector < int>> &grid)
     {
@@ -36,12 +35,9 @@ class Solution
         {
             for (int j = 0; j < n; j++)
             {
-                memset(vis, 0, sizeof(vis));
-                vis[i][j] = 1;
-                int res = grid[i][j];
+               	// memset(vis, 0, sizeof(vis));
                 if (grid[i][j] != 0)
-                    solve(i, j, grid, m, n, grid[i][j], res);
-                ans = max(ans, res);
+                    ans = max(ans, grid[i][j] + solve(i, j, grid, m, n));
             }
         }
         return ans;
