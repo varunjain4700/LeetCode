@@ -11,10 +11,10 @@ class Solution
             }
             return true;
         }
-    int solve(int idx, string s, int n, vector<int> &dp)
+    int solve(int idx, string& s, int n, vector<int> &dp)
     {
         if (idx == n)
-            return 0;
+            return -1;
         if (dp[idx] != -1)
             return dp[idx];
         int ans = 1e5;
@@ -33,6 +33,6 @@ class Solution
     {
         int n = s.size();
         vector<int> dp(n + 1, -1);
-        return solve(0, s, n, dp) - 1;
+        return solve(0, s, n, dp);
     }
 };
