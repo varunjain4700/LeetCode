@@ -20,9 +20,10 @@ class Solution
     {
         int m = mat.size(), n = mat[0].size();
         int ans = 0;
+        vector<int> temp(n, 0);
         for (int i = 0; i < m; i++)
         {
-            vector<int> temp(n, 0);
+            temp.assign(n,0);
             int val = 0;
             for (int j = i; j < m; j++)
             {
