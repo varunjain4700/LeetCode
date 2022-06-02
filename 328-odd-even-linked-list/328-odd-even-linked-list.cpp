@@ -19,12 +19,11 @@ class Solution
             dummy->next = head;
             ListNode *head2 = NULL;
             ListNode *temp1 = head, *temp2 = NULL;
-            int cnt = 1;
             head = head->next;
-            cnt++;
+            int cnt=2;
             while (head != NULL)
             {
-                if (cnt % 2 == 0)
+                if ((cnt &1) == 0)
                 {
                     if (temp2 == NULL)
                     {
