@@ -25,7 +25,7 @@ class Solution
             {
                 if ((cnt &1) == 0)
                 {
-                    if (temp2 == NULL)
+                    if (!temp2 )
                     {
                         head2 = temp2 = head;
                     }
@@ -40,7 +40,7 @@ class Solution
                     temp1->next = head;
                     temp1 = head;
                 }
-                cnt++;
+                ++cnt;
                 head = head->next;
             }
             temp2->next = NULL;
