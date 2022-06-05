@@ -3,7 +3,7 @@ class Solution
     public:
         vector<int> arrayChange(vector<int> &nums, vector<vector< int>> &ops)
         {
-            unordered_map<int, int> pos;
+            vector<int> pos(1e6 + 5, 0);
             for (int i = 0; i < nums.size(); i++)
             {
                 pos[nums[i]] = i;
