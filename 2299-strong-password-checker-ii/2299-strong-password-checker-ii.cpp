@@ -6,7 +6,8 @@ class Solution
             int n = s.size();
             if (n < 8)
                 return false;
-            bool small = false, capital = false, digit = false, special = false;
+            bool small,capital, digit ,special;
+            small=capital=digit=special=false;
             for (int i = 0; i < n; i++)
             {
                 if (i > 0 && s[i] == s[i - 1])
