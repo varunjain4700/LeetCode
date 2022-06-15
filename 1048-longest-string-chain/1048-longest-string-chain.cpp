@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        static bool cmp(string a, string b)
+        static bool cmp(string &a, string &b)
         {
             if (a.size() < b.size())
                 return true;
@@ -11,8 +11,8 @@ class Solution
     {
         int n = words.size();
         sort(words.begin(), words.end(), cmp);
-        map<string, vector < string>> adj;
-        map<string, int> indegree;
+        unordered_map<string, vector < string>> adj;
+        unordered_map<string, int> indegree;
         for (int i = 0; i < n; i++)
         {
             for (int j = i + 1; j < n; j++)
