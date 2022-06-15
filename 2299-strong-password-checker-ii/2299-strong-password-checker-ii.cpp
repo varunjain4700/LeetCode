@@ -6,8 +6,14 @@ class Solution
             int n = s.size();
             if (n < 8)
                 return false;
-            bool small,capital, digit ,special;
-            small=capital=digit=special=false;
+            bool small, capital, digit, special;
+            small = capital = digit = special = false;
+            string str = "!@#$%^&*()-+";
+            set<char> special_chars;
+            for (int i = 0; i < str.size(); i++)
+            {
+                special_chars.insert(str[i]);
+            }
             for (int i = 0; i < n; i++)
             {
                 if (i > 0 && s[i] == s[i - 1])
@@ -18,7 +24,7 @@ class Solution
                     capital = true;
                 if (s[i] - '0' >= 0 && s[i] - '0' <= 9)
                     digit = true;
-                if (s[i] == '!' || s[i] == '@' || s[i] == '$' || s[i] == '^' || s[i] == '%' || s[i] == '&' || s[i] == '*' || s[i] == '(' || s[i] == ')' || s[i] == '-' || s[i] == '+' || s[i] == '#')
+                if (special_chars.find(s[i]) != special_chars.end())
                     special = true;
             }
             if (small && capital && digit && special)
