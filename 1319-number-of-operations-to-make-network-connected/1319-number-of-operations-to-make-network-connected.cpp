@@ -17,7 +17,7 @@ class Solution
     {
         if (x == par[x])
             return x;
-        return find(par[x]);
+        return par[x] = find(par[x]);
     }
     void make_union(int x, int y)
     {
@@ -33,23 +33,19 @@ class Solution
         if (edges.size() < n - 1)
             return -1;
         initialise(n);
-        int extra = 0;
         for (int i = 0; i < edges.size(); i++)
         {
             if (find(edges[i][0]) != find(edges[i][1]))
             {
                 make_union(edges[i][0], edges[i][1]);
             }
-            else
-            {
-                extra++;	//extra edges between the computers that are already connected
-            }
         }
-        set<int> s;
+        int cnt = 0;
         for (int i = 0; i < n; i++)	//finding no. of connected components
         {
-            s.insert(find(i));
+            if (par[i] == i)
+                cnt++;
         }
-        return s.size() - 1;
+        return cnt - 1;
     }
 };
