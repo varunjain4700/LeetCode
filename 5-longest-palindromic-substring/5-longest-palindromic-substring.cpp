@@ -1,47 +1,37 @@
 class Solution
 {
     public:
-       	//expanding from the centre and moving towards both the ends while checking if the characters match or not
         string longestPalindrome(string s)
         {
-            int n = s.size(), low = 0, high = 0, idx = 0;
-            int ans = 0;
-            for (int i = 0; i < n; i++)
+            int n = s.size(), ans = 1, start = 0, end = 0, l, r;
+            for (int i = 0; i < n - 1; i++)
             {
-                low = high = i;	//checking for odd length substrings
-                while (low >= 0 && high < n)
+                l = i, r = i + 1;	//even substrings
+                while (l >= 0 && r < n && s[l] == s[r])
                 {
-                    if (s[low] == s[high])
+                    if (r - l + 1 > ans)
                     {
-                        if (high - low + 1 > ans)
-                        {
-                            ans = high - low + 1;
-                            idx = low;
-                        }
-                        low--;
-                        high++;
+                        ans = r - l + 1;
+                        start = l;
+                        end = r;
                     }
-                    else
-                        break;
+                    l--;
+                    r++;
                 }
-                low = i, high = i + 1;	//checking for even length substrings
-                while (low >= 0 && high < n)
+                l = i, r = i + 2;	//odd substrings
+                while (l >= 0 && r < n && s[l] == s[r])
                 {
-                    if (s[low] == s[high])
+                    if (r - l + 1 > ans)
                     {
-                        if (high - low + 1 > ans)
-                        {
-                            ans = high - low + 1;
-                            idx = low;
-                        }
-                        low--;
-                        high++;
+                        ans = r - l + 1;
+                        start = l;
+                        end = r;
                     }
-                    else
-                        break;
+                    l--;
+                    r++;
                 }
             }
-           	//cout << idx << " " << ans << endl;
-            return s.substr(idx, ans);
+
+            return s.substr(start, ans);
         }
 };
