@@ -4,7 +4,7 @@ class Solution
         bool matchReplacement(string s, string sub, vector<vector < char>> &mappings)
         {
             int n = s.size(), m = sub.size();
-            unordered_map<int, unordered_set < int>> mp;
+            unordered_map<char, unordered_set < char>> mp;
             for (int i = 0; i < mappings.size(); i++)
             {
                 mp[mappings[i][0]].insert(mappings[i][1]);
