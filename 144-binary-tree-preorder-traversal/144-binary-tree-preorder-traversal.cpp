@@ -40,8 +40,8 @@ class Solution
     vector<int> preorderTraversal(TreeNode *root)
     {
         vector<int> preorder;
-       	//recursive(root, preorder);
-        iterative(root, preorder);
+       	recursive(root, preorder);
+        //iterative(root, preorder);
         return preorder;
     }
 };
