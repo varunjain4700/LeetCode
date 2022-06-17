@@ -47,8 +47,8 @@ class Solution
     vector<int> inorderTraversal(TreeNode *root)
     {
         vector<int> inorder;
-       	//recursive(root,inorder);
-        iterative(root, inorder);
+       	recursive(root,inorder);
+        //iterative(root, inorder);
         return inorder;
     }
 };
