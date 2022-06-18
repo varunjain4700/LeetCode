@@ -116,24 +116,23 @@ class Solution
             {
                 pair<Node*,int>p=q.front();
                 q.pop();
-                Node* temp=p.first;
-                 int val=p.second;
-                if(mp.find(val)==mp.end())
-                    mp[val]=temp->data;
-                if(temp->left)
-                {
-                    q.push({temp->left,val-1});
-                }
-                 if(temp->right)
-                {
-                    q.push({temp->right,val+1});
-                }
+                Node* node=p.first;
+                int x=p.second;
+                if(mp.find(x)==mp.end())
+                    mp[x]=node->data;
+                if(node->left)
+                    q.push({node->left,x-1});
+                if(node->right)
+                    q.push({node->right,x+1});
             }
         }
         vector<int>res;
         for(auto it:mp)
+        {
             res.push_back(it.second);
+        }
         return res;
+        
     }
 
 };
