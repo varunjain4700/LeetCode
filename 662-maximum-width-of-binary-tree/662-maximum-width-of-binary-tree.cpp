@@ -16,13 +16,13 @@ class Solution
         {
             queue<pair<TreeNode*, long long>> q;
             q.push({ root,
-                1 });
+                0 });
             long long ans = 0;
             while (!q.empty())
             {
                 long long minm = 1e15, maxm = -1e15;
                 int sz = q.size();
-                long long start = q.front().second - 1;
+                long long start = q.front().second;
                 while (sz--)
                 {
                     pair<TreeNode*, long long > p = q.front();
