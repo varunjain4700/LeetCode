@@ -16,10 +16,12 @@ public:
 };
 */
 
-class Solution {
-public:
-    Node* connect(Node* root) {
-        if (!root)
+class Solution
+{
+    public:
+        Node* connect(Node *root)
+        {
+            if (!root)
                 return root;
             queue<Node*> q;
             q.push(root);
@@ -45,5 +47,5 @@ public:
                 }
             }
             return root;
-    }
+        }
 };
