@@ -23,28 +23,19 @@ class Solution
         {
             if (!root)
                 return root;
-            queue<Node*> q;
-            q.push(root);
-            while (!q.empty())
+           Node* start_node=root,*curr=NULL;
+            while(start_node->left)
             {
-                int sz = q.size();
-                while (sz--)
+                curr=start_node;
+                while(curr) //traverse all nodes of current level
                 {
-                    Node *temp = q.front();
-                    q.pop();
-                    if (temp->left)
-                        q.push(temp->left);
-                    if (temp->right)
-                        q.push(temp->right);
-                    if (sz == 0)
-                    {
-                        temp->next = NULL;
-                    }
-                    else
-                    {
-                        temp->next = q.front();
-                    }
+                    if(curr->left)
+                        curr->left->next=curr->right;
+                    if(curr->right&&curr->next)
+                        curr->right->next=curr->next->left;
+                    curr=curr->next;
                 }
+                start_node=start_node->left;//move to next level
             }
             return root;
         }
