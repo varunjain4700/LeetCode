@@ -5,27 +5,30 @@ class Solution
         {
             int n = heights.size();
             priority_queue<int, vector < int>, greater < int>> pq;
-            int bricks_reqd = 0;
-            for (int i = 1; i < n; i++)
+           	//keeping the max differences in min.priority queue and will select a ladder to cover them.rest of them will be covered using bricks
+            int i = 1, sum = 0;
+            while (i < n)
             {
                 if (heights[i] - heights[i - 1] <= 0)
+                {
+                    i++;
                     continue;
-                int dis = heights[i] - heights[i - 1];
-                if (pq.size() < ladders)
-                    pq.push(dis);
-                else if (!pq.empty() && dis > pq.top())
+                }
+                int diff = heights[i] - heights[i - 1];
+                if (pq.size() <= ladders)
                 {
-                    bricks_reqd += pq.top();
+                    pq.push(diff);
+                }
+                if (!pq.empty() && pq.size() > ladders)
+                {
+                    sum += pq.top();
                     pq.pop();
-                    pq.push(dis);
                 }
-                else
-                {
-                    bricks_reqd += dis;
-                }
-                if (bricks_reqd > bricks)
+               	//cout<<i<<"-"<<sum<<endl;
+                if (sum > bricks)
                     return i - 1;
+                i++;
             }
-            return n - 1;
+            return i - 1;
         }
 };
