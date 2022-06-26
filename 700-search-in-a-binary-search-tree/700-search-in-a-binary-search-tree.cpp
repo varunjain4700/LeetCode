@@ -12,22 +12,16 @@
 class Solution
 {
     public:
-        TreeNode * res;
-    void solve(TreeNode *root, int key)
-    {
-        if (root == NULL)
-            return;
-        if (key == root->val)
-            res = root;
-        else if (key < root->val)
-            solve(root->left, key);
-        else
-            solve(root->right, key);
-    }
-    TreeNode* searchBST(TreeNode *root, int val)
-    {
-        res = NULL;
-        solve(root, val);
-        return res;
-    }
+        TreeNode* searchBST(TreeNode *root, int val)
+        {
+            if (!root)
+                return NULL;
+            if (root->val == val)
+                return root;
+            if (root->val > val)
+                return searchBST(root->left, val);
+            else
+                return searchBST(root->right, val);
+            return NULL;
+        }
 };
