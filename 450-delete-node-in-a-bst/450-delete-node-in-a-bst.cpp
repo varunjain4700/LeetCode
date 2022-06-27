@@ -18,30 +18,30 @@ class Solution
                 return root;
             if (root->val == key)
             {
-               	// if (root->right)
-               	// {
-               	//     TreeNode *leftChild = root->left;
-               	//     TreeNode *temp = root->right;
-               	//     while (temp->left)
-               	//         temp = temp->left;
-               	//     temp->left = leftChild;
-               	//     root = root->right;	//important as need to send back the node which needs to be attached 
-               	// }
-               	// else
-               	//     root = root->left;
+               	if (root->right)
+               	{
+               	    TreeNode *leftChild = root->left;
+               	    TreeNode *temp = root->right;
+               	    while (temp->left)
+               	        temp = temp->left;
+               	    temp->left = leftChild;
+               	    root = root->right;	//important as need to send back the node which needs to be attached 
+               	}
+               	else
+               	    root = root->left;
 
                	//either of the two ways will work
-                if (root->left)
-                {
-                    TreeNode *rightChild = root->right;
-                    TreeNode *temp = root->left;
-                    while (temp->right)
-                        temp = temp->right;
-                    temp->right = rightChild;
-                    root = root->left;
-                }
-                else
-                    root = root->right;
+                // if (root->left)
+                // {
+                //     TreeNode *rightChild = root->right;
+                //     TreeNode *temp = root->left;
+                //     while (temp->right)
+                //         temp = temp->right;
+                //     temp->right = rightChild;
+                //     root = root->left;
+                // }
+                // else
+                //     root = root->right;
             }
             else if (root->val > key)
                 root->left = deleteNode(root->left, key);
