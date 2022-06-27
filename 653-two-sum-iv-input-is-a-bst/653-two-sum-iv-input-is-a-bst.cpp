@@ -12,19 +12,14 @@
 class Solution
 {
     public:
-        map<int, int> mp;
-    bool solve(TreeNode *root, int k)
+    unordered_map<int, int> mp;
+    bool findTarget(TreeNode *root, int k)
     {
-        if (!root)
+         if (!root)
             return false;
         if (mp.find(k - root->val) != mp.end())
             return true;
         mp[root->val]++;
-        return solve(root->left, k) || solve(root->right, k);
-    }
-    bool findTarget(TreeNode *root, int k)
-    {
-        mp.clear();
-        return solve(root, k);
+        return findTarget(root->left, k) || findTarget(root->right, k);
     }
 };
