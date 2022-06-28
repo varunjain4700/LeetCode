@@ -9,29 +9,26 @@ class MedianFinder
     {
         if (maxm.empty())
             maxm.push(num);
-        else
+        else if (maxm.size() == minm.size())
         {
-            if (maxm.size() > minm.size())
-            {
-                if (num < maxm.top())
-                {
-                    minm.push(maxm.top());
-                    maxm.pop();
-                    maxm.push(num);
-                }
-                else
-                    minm.push(num);
-            }
+            if (num <= minm.top())
+                maxm.push(num);
             else
             {
-                if (num > minm.top())
-                {
-                    maxm.push(minm.top());
-                    minm.pop();
-                    minm.push(num);
-                }
-                else
-                    maxm.push(num);
+                maxm.push(minm.top());
+                minm.pop();
+                minm.push(num);
+            }
+        }
+        else
+        {
+            if (num > maxm.top())
+                minm.push(num);
+            else
+            {
+                minm.push(maxm.top());
+                maxm.pop();
+                maxm.push(num);
             }
         }
     }
@@ -39,12 +36,10 @@ class MedianFinder
     double findMedian()
     {
         double ans = 0;
-        if (maxm.size() > minm.size())
-            ans = maxm.top();
+        if (maxm.size() == minm.size())
+            ans = (double)(maxm.top() + minm.top()) / 2;
         else
-        {
-            ans = (maxm.top() + minm.top()) / (double) 2;
-        }
+            ans = maxm.top();
         return ans;
     }
 };
