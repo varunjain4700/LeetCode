@@ -5,11 +5,7 @@ class Solution
         {
             int n = nums.size();
             sort(nums.begin(), nums.end());
-            int median = 0;
-            if (n % 2 == 1)
-                median = nums[n / 2];
-            else
-                median = (nums[n / 2 - 1] + nums[n / 2]) / 2;
+            int median = nums[n / 2];
             int ans = 0;
             for (int i = 0; i < n; i++)
             {
