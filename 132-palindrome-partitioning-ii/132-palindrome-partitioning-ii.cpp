@@ -11,28 +11,29 @@ class Solution
             }
             return true;
         }
-    int solve(int idx, string &s, vector<int> &dp)
+    int solve(int idx, string &str, int n, vector<int> &dp)
     {
-        if (idx == s.size())
+        if (idx == n)
             return -1;
         if (dp[idx] != -1)
             return dp[idx];
-        int ans = 1e5;
-        string str = "";
-        for (int i = idx; i < s.size(); i++)
+        int ans = 1e7;
+        string s = "";
+        for (int i = idx; i < n; i++)
         {
-            str += s[i];
-            if (check(str))
+            s += str[i];
+            if (check(s))
             {
-                ans = min(ans, 1 + solve(i + 1, s, dp));
+                int temp = 1 + solve(i + 1, str, n, dp);
+                ans = min(ans, temp);
             }
         }
         return dp[idx] = ans;
     }
-    int minCut(string s)
+    int minCut(string str)
     {
-        int n = s.size();
+        int n = str.size();
         vector<int> dp(n + 1, -1);
-        return solve(0, s, dp);
+        return solve(0, str, n, dp);
     }
 };
