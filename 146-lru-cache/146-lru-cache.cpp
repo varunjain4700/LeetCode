@@ -1,7 +1,6 @@
 class LRUCache
 {
     public:
-
         struct Node
         {
             int key;
@@ -11,8 +10,13 @@ class LRUCache
         };
     Node *head = new Node();
     Node *tail = new Node();
-    unordered_map<int, Node*> mp;
-    int cap = 0, sz = 0;
+    int cap = 0;
+    map<int, Node*> mp;
+    LRUCache(int capacity)
+    {
+        cap = capacity;
+    }
+
     Node* getnewnode(int key, int value)
     {
         Node *temp = new Node();
@@ -20,87 +24,67 @@ class LRUCache
         temp->val = value;
         return temp;
     }
-    LRUCache(int capacity)
-    {
-        cap = capacity;
-    }
 
     int get(int key)
     {
-        if (mp.find(key) == mp.end())
+        if (mp.find(key) == mp.end())	//if key doesn't exist
             return -1;
-        else
-        {
-            Node *node = mp[key];
-            if (node->prev != NULL)
-                node->prev->next = node->next;
-            if (node->next != NULL)
-                node->next->prev = node->prev;
-            Node *temp = getnewnode(key, node->val);
-            mp[key] = temp;
-            head->next->prev = temp;
-            temp->next = head->next;
-            head->next = temp;
-            temp->prev = head;
-            return temp->val;
-        }
+       	//if key exists ,return the value and also shift it to the front since it go used recently
+        Node *add = mp[key];
+        add->prev->next = add->next;
+        add->next->prev = add->prev;
+        add->next = head->next;
+        head->next->prev = add;
+        head->next = add;
+        add->prev = head;
+        return add->val;
     }
 
-    void put(int key, int value)
+    void put(int key1, int value)
     {
-        if (mp.find(key) != mp.end())	//if key is already present
+        if (head->next == NULL)
         {
-            Node *node = mp[key];
-            if (node->next == tail)
-            {
-                tail->prev = node->prev;
-            }
-            if (node->prev != NULL)
-                node->prev->next = node->next;
-            if (node->next != NULL)
-                node->next->prev = node->prev;
+            head->next = tail;
+            tail->prev = head;
         }
-        else
+        if (mp.find(key1) == mp.end())	//key does not exists in cache
         {
-            if (head->next == NULL)
+            if (cap > 0)
             {
-                sz++;
-                Node *temp = getnewnode(key, value);
-                mp[key] = temp;
-                head->next = temp;
-                temp->next = tail;
-                tail->prev = temp;
-                temp->prev = head;
-                return;
+               	//insert new element at the beginning of the cache
+                cap--;
             }
             else
             {
-                if (sz == cap)
-                {
-                    Node *node = tail->prev;
-                    node->prev->next = tail;
-                    tail->prev = node->prev;
-                    auto it = mp.find(node->key);
-                    mp.erase(it);
-                }
-                else {}
+               	//remove the element from the back of ll as it will be the least recently used
+
+               	//removing the end_node
+                Node *temp = tail->prev;
+                Node *new_end = tail->prev->prev;
+                new_end->next = tail;
+                tail->prev = new_end;
+                auto it = mp.find(temp->key);
+                mp.erase(it);
             }
-            if (sz < cap)
-                sz++;
+           	//adding new node at the front
+            Node *temp = getnewnode(key1, value);
+            temp->next = head->next;
+            head->next->prev = temp;
+            head->next = temp;
+            temp->prev = head;
+            mp[key1] = temp;
         }
-        Node *temp = getnewnode(key, value);
-        mp[key] = temp;
-        head->next->prev = temp;
-        temp->next = head->next;
-        head->next = temp;
-        temp->prev = head;
-       	// Node *head2 = head;
-       	// while (head2 != NULL)
-       	// {
-       	//     cout << head2->val << " ";
-       	//     head2 = head2->next;
-       	// }
-       	// cout << endl;
+        else	//key exists in cache,then change its value and move it to front 
+        {
+            Node *add = mp[key1];
+            add->val = value;
+            add->prev->next = add->next;
+            add->next->prev = add->prev;
+            add->next = head->next;
+            head->next->prev = add;
+            head->next = add;
+            add->prev = head;
+        }
     }
 };
 
