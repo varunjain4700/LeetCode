@@ -7,22 +7,24 @@ class Solution {
   public:
     // Function to detect cycle in an undirected graph.
     bool cycle=0;
-void dfs(int src,int par,vector<int>adj[],vector<bool>&vis)
+bool dfs(int src,int par,vector<int>adj[],vector<bool>&vis)
 {
     vis[src]=1;
     //cout<<src<<" "<<par<<endl;
     for(auto child:adj[src])
     {
         if(!vis[child]){
-           dfs(child,src,adj,vis);
+           if(dfs(child,src,adj,vis))
+            return true;
         }
         else
         {
             if(child!=par){
-                cycle=1;
+               return true;
             }
         }       
     }
+    return false;
 }
     bool isCycle(int n, vector<int> adj[]) {
     vector<bool>vis(n+1,0);
@@ -30,11 +32,9 @@ void dfs(int src,int par,vector<int>adj[],vector<bool>&vis)
     for(int i=0;i<n;i++)
     {
         if(!vis[i]){
-           dfs(i,-1,adj,vis);
-            if(cycle)
-               {
-                   return true;
-               }
+           if(dfs(i,-1,adj,vis))
+            return true;
+            
         }
     }
     return false;
