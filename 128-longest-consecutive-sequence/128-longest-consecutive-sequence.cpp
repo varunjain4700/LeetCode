@@ -7,26 +7,24 @@ class Solution
             unordered_map<int, bool> mp;
             for (int i = 0; i < n; i++)
                 mp[nums[i]] = 0;
-            int i = 0, ans = 0, len = 0, curr;
-            while (i < n)
+            int ans = 0;
+            for (int i = 0; i < n; i++)
             {
-                len = 0;
-                curr = nums[i];
-                int temp = curr - 1;
-                while (mp.find(curr) != mp.end() && mp[curr] == 0)
+                int cnt = 1, element = nums[i] - 1;
+                while (mp.find(element) != mp.end() && mp[element] == 0)
                 {
-                    mp[curr] = 1;
-                    len++;
-                    curr++;
+                    mp[element] = 1;
+                    element--;
+                    cnt++;
                 }
-                while (mp.find(temp) != mp.end() && mp[temp] == 0)
+                element = nums[i] + 1;
+                while (mp.find(element) != mp.end() && mp[element] == 0)
                 {
-                    mp[temp] = 1;
-                    len++;
-                    temp--;
+                    mp[element] = 1;
+                    element++;
+                    cnt++;
                 }
-                ans = max(ans, len);
-                i++;
+                ans = max(ans, cnt);
             }
             return ans;
         }
