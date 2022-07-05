@@ -26,13 +26,39 @@ bool dfs(int src,int par,vector<int>adj[],vector<bool>&vis)
     }
     return false;
 }
+bool bfs(int src,int par,vector<int>adj[],vector<bool>&vis)
+{
+    queue<pair<int,int>>q;
+    q.push({src,par});
+    vis[src]=1;
+    while(!q.empty())
+    {
+        pair<int,int>p=q.front();
+        q.pop();
+        int v=p.first,parent=p.second;
+        for(auto child:adj[v])
+        {
+            if(!vis[child])
+            {
+                vis[child]=1;
+                q.push({child,v});
+            }
+            else
+            {
+                if(child!=parent)
+                    return true;
+            }
+        }
+    }
+    return false;
+}
     bool isCycle(int n, vector<int> adj[]) {
     vector<bool>vis(n+1,0);
     cycle=0;
     for(int i=0;i<n;i++)
     {
         if(!vis[i]){
-           if(dfs(i,-1,adj,vis))
+           if(bfs(i,-1,adj,vis))
             return true;
             
         }
