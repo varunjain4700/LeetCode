@@ -26,17 +26,44 @@ class Solution {
         return false;
     }
     bool isCyclic(int n, vector<int> adj[]) {
-        vector<bool>vis(n,0),dfsvis(n,0);
+        // vector<bool>vis(n,0),dfsvis(n,0);
         
-        for(int i=0;i<n;i++)
-        {
-            if(!vis[i])
-            {
-                if(dfs(i,-1,adj,vis,dfsvis))
-                    return true;
-            }
-        }
-        return false;
+        // for(int i=0;i<n;i++)
+        // {
+        //     if(!vis[i])
+        //     {
+        //         if(dfs(i,-1,adj,vis,dfsvis))
+        //             return true;
+        //     }
+        // }
+         vector<int>indegree(n,0);
+	    for(int i=0;i<n;i++)
+	    {
+	        for(int j=0;j<adj[i].size();j++)
+	            indegree[adj[i][j]]++;
+	    }
+	    queue<int>q;
+	    for(int i=0;i<n;i++)
+	    {
+	        if(indegree[i]==0)
+	            q.push(i);
+	    }
+	    int cnt=0;
+	    while(!q.empty())
+	    {
+	        int node=q.front();
+	        cnt++;
+	        q.pop();
+	        for(auto it:adj[node])
+	        {
+	            indegree[it]--;
+	            if(indegree[it]==0)
+	                q.push(it);
+	        }
+	    }
+	    if(cnt==n)
+            return false;
+            return true;
     }
 };
 
