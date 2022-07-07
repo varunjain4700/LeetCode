@@ -4,7 +4,7 @@ class Solution
         vector<int> par, sz;
     void initialise(int n)
     {
-        for (int i = 0; i <= n; i++)
+        for (int i = 0; i < n; i++)
         {
             par[i] = i;
             sz[i] = 1;
@@ -14,7 +14,7 @@ class Solution
     {
         if (x == par[x])
             return x;
-        return find(par[x]);
+        return par[x]=find(par[x]);
     }
     void merge(int x, int y)
     {
