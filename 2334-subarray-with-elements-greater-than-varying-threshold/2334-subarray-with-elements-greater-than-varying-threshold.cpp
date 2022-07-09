@@ -3,26 +3,25 @@ class Solution
     public:
         int validSubarraySize(vector<int> &nums, int threshold)
         {
-            stack<pair<int, int>> st;
+            stack<int> st;
             vector<int> nsl, nsr;
             int n = nums.size();
             for (int i = 0; i < n; i++)
             {
                 if (st.empty())
                     nsl.push_back(-1);
-                else if (st.top().first < nums[i])
-                    nsl.push_back(st.top().second);
+                else if (nums[st.top()] < nums[i])
+                    nsl.push_back(st.top());
                 else
                 {
-                    while (!st.empty() && st.top().first >= nums[i])
+                    while (!st.empty() && nums[st.top()] >= nums[i])
                         st.pop();
                     if (st.empty())
                         nsl.push_back(-1);
                     else
-                        nsl.push_back(st.top().second);
+                        nsl.push_back(st.top());
                 }
-                st.push({ nums[i],
-                    i });
+                st.push(i);
             }
             while (!st.empty())
                 st.pop();
@@ -30,19 +29,18 @@ class Solution
             {
                 if (st.empty())
                     nsr.push_back(n);
-                else if (st.top().first < nums[i])
-                    nsr.push_back(st.top().second);
+                else if (nums[st.top()] < nums[i])
+                    nsr.push_back(st.top());
                 else
                 {
-                    while (!st.empty() && st.top().first >= nums[i])
+                    while (!st.empty() && nums[st.top()] >= nums[i])
                         st.pop();
                     if (st.empty())
                         nsr.push_back(n);
                     else
-                        nsr.push_back(st.top().second);
+                        nsr.push_back(st.top());
                 }
-                st.push({ nums[i],
-                    i });
+                st.push(i);
             }
             reverse(nsr.begin(), nsr.end());
             for (int i = 0; i < n; i++)
