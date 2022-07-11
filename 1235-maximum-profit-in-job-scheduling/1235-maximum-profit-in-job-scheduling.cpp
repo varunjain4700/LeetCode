@@ -11,9 +11,18 @@ class Solution
            	//don't do the current job
             ans = solve(idx + 1, jobs, n, start_time, dp);
            	//find the next job which can potentially take place if current job is selected and done
-            auto pos = lower_bound(start_time.begin(), start_time.end(),
-                jobs[idx][1]) - start_time.begin();
-            ans = max(ans, jobs[idx][2] + solve(pos, jobs, n, start_time, dp));
+           	// auto pos = lower_bound(start_time.begin(), start_time.end(),
+           	//     jobs[idx][1]) - start_time.begin();
+            int low = idx + 1, high = n, end_time = jobs[idx][1];
+            while (low < high)
+            {
+                int mid = (low + high) / 2;
+                if (start_time[mid] >= end_time)
+                    high = mid;
+                else
+                    low = mid + 1;
+            }
+            ans = max(ans, jobs[idx][2] + solve(low, jobs, n, start_time, dp));
             return dp[idx] = ans;
         }
     int jobScheduling(vector<int> &start, vector<int> &end, vector< int > &profit)
