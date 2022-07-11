@@ -1,40 +1,36 @@
 class Solution
 {
     public:
-        int solve(int idx, vector<vector < int>> &events, vector< int > &start_time, vector< int > &dp)
+        int solve(int idx, vector<vector < int>> &jobs, int n, vector< int > &start_time, vector< int > &dp)
         {
-            if (idx == events.size())
+            if (idx == n)
                 return 0;
             if (dp[idx] != -1)
                 return dp[idx];
             int ans = 0;
-           	//not select an event 
-            ans = solve(idx + 1, events, start_time, dp);
-
-           	//or select the given event
-            auto start = lower_bound(start_time.begin(), start_time.end(), events[idx][1]);
-           	//next event with starting time greater than ending time of current event can only be chosen
-            int nxt_event = start - start_time.begin();
-            ans = max(ans, events[idx][2] + solve(nxt_event, events, start_time, dp));
-
+           	//don't do the current job
+            ans = solve(idx + 1, jobs, n, start_time, dp);
+           	//find the next job which can potentially take place if current job is selected and done
+            auto pos = lower_bound(start_time.begin(), start_time.end(),
+                jobs[idx][1]) - start_time.begin();
+            ans = max(ans, jobs[idx][2] + solve(pos, jobs, n, start_time, dp));
             return dp[idx] = ans;
         }
-
-    int jobScheduling(vector<int> &startTime, vector<int> &endTime, vector< int > &profit)
+    int jobScheduling(vector<int> &start, vector<int> &end, vector< int > &profit)
     {
-        int n = startTime.size();
-        vector<vector < int>> events;
+        vector<vector < int>> jobs;
+        int n = start.size();
         for (int i = 0; i < n; i++)
         {
-            events.push_back({ startTime[i],
-                endTime[i],
+            jobs.push_back({ start[i],
+                end[i],
                 profit[i] });
         }
-        sort(events.begin(), events.end());
-        vector<int> dp(n + 1, -1);
-        vector<int> start_time(n, 0);
+        sort(jobs.begin(), jobs.end());
+        vector<int> start_time;
         for (int i = 0; i < n; i++)
-            start_time[i] = events[i][0];
-        return solve(0, events, start_time, dp);
+            start_time.push_back(jobs[i][0]);
+        vector<int> dp(n + 1, -1);
+        return solve(0, jobs, n, start_time, dp);
     }
 };
