@@ -16,9 +16,9 @@ class Solution
         {
             if (!root)
                 return {};
+            vector<int> res;
             queue<TreeNode*> q;
             q.push(root);
-            vector<int> res;
             while (!q.empty())
             {
                 int sz = q.size();
