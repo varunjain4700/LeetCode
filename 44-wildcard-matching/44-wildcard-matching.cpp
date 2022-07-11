@@ -9,10 +9,12 @@ class Solution
                 return false;
             if (i < 0)
             {
-                if (s2[j] == '*')
-                    return solve(i, j - 1, s1, s2, dp);
-                else
-                    return false;
+                for (int k = j; k >= 0; k--)
+                {
+                    if (s2[k] != '*')
+                        return false;
+                }
+                return true;
             }
             if (dp[i][j] != -1)
                 return dp[i][j];
