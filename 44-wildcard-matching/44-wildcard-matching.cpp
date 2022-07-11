@@ -17,16 +17,14 @@ class Solution
             if (dp[i][j] != -1)
                 return dp[i][j];
             bool ans = false;
-            if (s1[i] == s2[j])
+            if (s1[i] == s2[j] || s2[j] == '?' || s2[j] == '*')
                 ans = solve(i - 1, j - 1, s1, s2, dp);
-            else
+            if (s2[j] == '*')
             {
-                if (s2[j] == '?' || s2[j] == '*')
-                    ans = solve(i - 1, j - 1, s1, s2, dp);
-                if (s2[j] == '*')
-                {
-                    ans = solve(i - 1, j, s1, s2, dp) | solve(i, j - 1, s1, s2, dp);
-                }
+               	// if (s2[j] == '?' || s2[j] == '*')
+               	//     ans = solve(i - 1, j - 1, s1, s2, dp);
+
+                ans |= (solve(i - 1, j, s1, s2, dp) | solve(i, j - 1, s1, s2, dp));
             }
             return dp[i][j] = ans;
         }
