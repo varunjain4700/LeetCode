@@ -14,6 +14,8 @@ class Solution
                         return true;
                     subset[i] += nums[idx];
                 }
+                if(subset[i]==0)
+                    break;
             }
             return false;
         }
