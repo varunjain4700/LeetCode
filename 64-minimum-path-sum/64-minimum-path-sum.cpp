@@ -15,13 +15,13 @@ class Solution
                         curr[j] = grid[i][j];
                         continue;
                     }
-                    if (i - 1 >= 0)
-                        curr[j] = prev[j];
+                    // if (i - 1 >= 0)
+                    //     curr[j] = prev[j];
                     if (j - 1 >= 0)
                         curr[j] = min(curr[j], curr[j - 1]);
                     curr[j] += grid[i][j];
                 }
-                prev = curr;
+               // prev = curr;
             }
             return curr[n - 1];
         }
