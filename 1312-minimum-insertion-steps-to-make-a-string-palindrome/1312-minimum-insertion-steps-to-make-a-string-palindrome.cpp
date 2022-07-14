@@ -7,17 +7,19 @@ class Solution
             string t;
             for (int i = n - 1; i >= 0; i--)
                 t += s[i];
-            vector<vector < int>> dp(n + 1, vector<int> (n + 1, 0));
+           	// vector<vector < int>> dp(n + 1, vector<int> (n + 1, 0));
+            vector<int> curr(n + 1, 0), pre(n + 1, 0);
             for (int i = 1; i <= n; i++)
             {
                 for (int j = 1; j <= n; j++)
                 {
                     if (s[i - 1] == t[j - 1])
-                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                        curr[j] = pre[j - 1] + 1;
                     else
-                        dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+                        curr[j] = max(pre[j], curr[j - 1]);
                 }
+                pre = curr;
             }
-            return n - dp[n][n];
+            return n - pre[n];
         }
 };
