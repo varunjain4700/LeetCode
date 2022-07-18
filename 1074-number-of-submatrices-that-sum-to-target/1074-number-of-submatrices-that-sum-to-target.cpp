@@ -4,7 +4,7 @@ class Solution
         int solve(vector<int> &nums, int target)
         {
             int n = nums.size();
-            unordered_map<int, int> mp;
+            map<int, int> mp;
             mp[0] = 1;
             int cnt = 0, curr_sum = 0;
             for (int i = 0; i < n; i++)
