@@ -8,13 +8,13 @@ class Solution
             if (k == 0)
                 return;
            	//Using extra space O(n)
-           	map<int, int> mp;
-           	for (int i = 0; i < n; i++)
-           	    mp[i] = nums[i];
-           	for (int i = 0; i < n; i++)
-           	{
-           	    nums[(i + k) % n] = mp[i];
-           	}
+           	// map<int, int> mp;
+           	// for (int i = 0; i < n; i++)
+           	//     mp[i] = nums[i];
+           	// for (int i = 0; i < n; i++)
+           	// {
+           	//     nums[(i + k) % n] = mp[i];
+           	// }
 
            	//  Visualize like this to understand:
 
@@ -24,8 +24,8 @@ class Solution
            	// reverse "----->-->" we can get "<--<-----"
            	// reverse "<--" we can get "--><-----"
            	// reverse "<-----" we can get "-->----->"
-            // reverse(nums.begin(), nums.end());
-            // reverse(nums.begin(), nums.begin() + k);
-            // reverse(nums.begin() + k, nums.end());
+            reverse(nums.begin(), nums.end());
+            reverse(nums.begin(), nums.begin() + k);
+            reverse(nums.begin() + k, nums.end());
         }
 };
