@@ -47,7 +47,9 @@ class Solution
     }
     int strStr(string text, string pattern)
     {
-       	return brute_force(text,pattern);
+       	//return brute_force(text,pattern);
+
+       	//Using KMP algorithm
         int m = text.size(), n = pattern.size();
         vector<int> lps = find_lps(pattern);
        	//lps-->longest proper prefix which is also a suffix.
