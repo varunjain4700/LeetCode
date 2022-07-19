@@ -6,35 +6,26 @@ class Solution
             int n = s.size();
             vector<int> freq(26, 0);
             for (int i = 0; i < n; i++)
-            {
                 freq[s[i] - 'a']++;
-            }
-            priority_queue<int> pq;
-            for (int i = 0; i < 26; i++)
+            sort(freq.begin(), freq.end(), greater<int> ());
+            int ans = 0;
+            int cnt = freq[0];
+            for (int i = 1; i < 26; i++)
             {
-                if (freq[i] != 0)
-                    pq.push(freq[i]);
-            }
-            int cnt = 0;
-            int prev = pq.top();
-            pq.pop();
-            cnt += prev;
-            while (!pq.empty())
-            {
-                if (pq.top() >= prev)
+                if (freq[i] == 0)
+                    break;
+                if (cnt == 0)
+                    ans += freq[i];
+                else if (freq[i] < cnt)
                 {
-                    cnt += prev - 1;
-                    prev--;
+                    cnt = freq[i];
                 }
                 else
                 {
-                    cnt += pq.top();
-                    prev = pq.top();
+                    cnt--;
+                    ans += (freq[i] - cnt);
                 }
-                pq.pop();
-                if (prev <= 1)
-                    break;
             }
-            return n - cnt;
+            return ans;
         }
 };
