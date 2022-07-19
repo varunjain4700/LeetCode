@@ -1,22 +1,22 @@
 class Solution
 {
     public:
-        int brute_force(string &text, string &pattern)
-        {
-            int m = text.size(), n = pattern.size();
-            for (int i = 0; i < m - n + 1; i++)
-            {
-                int j;
-                for (j = 0; j < n; j++)
-                {
-                    if (text[i + j] != pattern[j])
-                        break;
-                }
-                if (j == n)
-                    return i;
-            }
-            return -1;
-        }
+        // int brute_force(string &text, string &pattern)
+        // {
+        //     int m = text.size(), n = pattern.size();
+        //     for (int i = 0; i < m - n + 1; i++)
+        //     {
+        //         int j;
+        //         for (j = 0; j < n; j++)
+        //         {
+        //             if (text[i + j] != pattern[j])
+        //                 break;
+        //         }
+        //         if (j == n)
+        //             return i;
+        //     }
+        //     return -1;
+        // }
     vector<int> find_lps(string pattern)
     {
         int n = pattern.size();
