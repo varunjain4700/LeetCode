@@ -13,30 +13,29 @@ class Solution
     public:
         ListNode* reverseBetween(ListNode *head, int left, int right)
         {
-            ListNode *dummy = new ListNode(0);
+            ListNode *dummy = new ListNode();
             dummy->next = head;
-            ListNode *start = dummy;
-            int counter = 1;
-            while (counter != left)
+            ListNode *temp = dummy;
+            int cnt = 1;
+            while (cnt != left)	//move the pointer to the starting node of the list which needs to be reversed
             {
-                start = start->next;
-                head = head->next;
-                counter++;
+                cnt++;
+                temp = temp->next;
             }
-            ListNode *copy = head;
-            ListNode *prev = head, *next_node = head->next;
-            counter++;
-            head = head->next;
-            while (counter <= right)
+            ListNode *start = temp;
+            ListNode *prev = start->next;
+            ListNode *curr = prev->next, *nxt = prev->next;
+            cnt = 0;
+            while (cnt != right - left)	//reverse the list
             {
-                next_node = head->next;
-                head->next = prev;
-                prev = head;
-                head = next_node;
-                counter++;
+                cnt++;
+                nxt = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = nxt;
             }
+            start->next->next = curr;
             start->next = prev;
-            copy->next = head;
             return dummy->next;
         }
 };
