@@ -1,74 +1,77 @@
 class Solution
 {
     public:
-       	//Good problem to test the concept of merge sort and its application
-
-       	//This problem is basically asking us to calculating all the inversion counts
-       	//But what is an inversion?
-       	//A pair (i,j) is an inversion if a[i]>a[j] && i < j;
-
-       	//One thing that is worth remembering is we are appplying merge sort on array of indexes (instead of original array, we can do that also but this will be easier to implement) as we need to know the original indexes(as elements will be merged and their indexes will not remain same while doing sorting) to keep in account the elements that are smaller to its right.
-
-        void sortArray(vector<int> &nums, vector<int> &index, int low, int high, vector< int > &cnt)
-        {
-            if (low < high)
-            {
-                int mid = (low + high) / 2;
-                sortArray(nums, index, low, mid, cnt);
-                sortArray(nums, index, mid + 1, high, cnt);
-                merge(nums, index, low, high, cnt);
-            }
-        }
-    void merge(vector<int> &nums, vector<int> &index, int low, int high, vector< int > &cnt)
+        vector<int> cnt;
+    void sort(int low, int high, vector<pair<int, int>> &nums)
     {
-        vector<int> res(high-low+1);
+        if (low < high)
+        {
+            int mid = (low + high) / 2;
+            sort(low, mid, nums);
+            sort(mid + 1, high, nums);
+            merge(low, high, nums);
+        }
+    }
+    void merge(int low, int high, vector<pair<int, int>> &nums)
+    {
+        int n = nums.size();
+        vector<pair<int, int>> res(high - low + 1);
+        int mid = (low + high) / 2;
+        int i = low, j = mid + 1, k = 0;
         int smallerToRight = 0;
-        int mid=(low+high)/2;
-        int i = low, j = mid + 1,k=0;
         while (i <= mid && j <= high)
         {
-            if (nums[index[j]] < nums[index[i]])
+            if (nums[i].first <= nums[j].first)
             {
-                smallerToRight++;
-                res[k]=index[j];
-                ++k;
-                ++j;
+                res[k].first = nums[i].first;
+                res[k].second = nums[i].second;
+                cnt[nums[i].second] += smallerToRight;
+                k++;
+                i++;
             }
             else
             {
-                cnt[index[i]] += smallerToRight;
-                res[k]=index[i];
-                ++k;
-                ++i;
+                smallerToRight++;
+                res[k].first = nums[j].first;
+                res[k].second = nums[j].second;
+                k++;
+                j++;
             }
-        }
-        while (j <= high)
-        {
-            smallerToRight++;
-            res[k]=index[j];
-            ++k;
-            ++j;
         }
         while (i <= mid)
         {
-            cnt[index[i]] += smallerToRight;
-            res[k]=index[i];
-            ++k;
-            ++i;
+            res[k].first = nums[i].first;
+            res[k].second = nums[i].second;
+            cnt[nums[i].second] += smallerToRight;
+            k++;
+            i++;
         }
-         k = 0;
+        while (j <= high)
+        {
+            res[k].first = nums[j].first;
+            res[k].second = nums[j].second;
+            k++;
+            j++;
+        }
+        k = 0;
         for (int i = low; i <= high; i++)
         {
-            index[i] = res[k++];
+            nums[i].first = res[k].first;
+            nums[i].second = res[k].second;
+            k++;
         }
     }
     vector<int> countSmaller(vector<int> &nums)
     {
         int n = nums.size();
-        vector<int> index, cnt(n);
+        vector<pair<int, int>> new_nums;
+        cnt.resize(n, 0);
         for (int i = 0; i < n; i++)
-            index.push_back(i);
-        sortArray(nums, index, 0, n - 1, cnt);
+        {
+            new_nums.push_back({ nums[i],
+                i });
+        }
+        sort(0, n - 1, new_nums);
         return cnt;
     }
 };
