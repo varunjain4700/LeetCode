@@ -5,7 +5,7 @@ class Solution
         {
             int m = mat.size(), n = mat[0].size();
             int i = 0, j = n - 1;
-            while (i >= 0 && i < m && j >= 0 && j < n)
+            while (i < m && j >= 0)
             {
                 if (target > mat[i][j])
                     i++;
