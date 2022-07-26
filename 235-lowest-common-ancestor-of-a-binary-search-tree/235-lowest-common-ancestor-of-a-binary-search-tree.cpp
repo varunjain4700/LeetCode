@@ -1,35 +1,23 @@
 /**
  *Definition for a binary tree node.
  *struct TreeNode {
- *  int val;
- *  TreeNode * left;
- *  TreeNode * right;
- *  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ *int val;
+ *TreeNode * left;
+ *TreeNode * right;
+ *TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  *};
  */
 
 class Solution
 {
     public:
-        TreeNode * lca;
-    void solve(TreeNode *root, TreeNode *p, TreeNode *q)
-    {
-        if (!root)
-            return;
-        if (root->val >= p->val && root->val <= q->val)
+        TreeNode* lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
         {
-            lca = root;
-            return;
+            if (root->val < p->val && root->val < q->val)
+                return lowestCommonAncestor(root->right, p, q);
+            else if (root->val > p->val && root->val > q->val)
+                return lowestCommonAncestor(root->left, p, q);
+            else
+                return root;
         }
-        solve(root->left, p, q);
-        solve(root->right, p, q);
-    }
-    TreeNode* lowestCommonAncestor(TreeNode *root, TreeNode *p, TreeNode *q)
-    {
-        if (q->val < p->val)
-            swap(p, q);
-        lca = NULL;
-        solve(root, p, q);
-        return lca;
-    }
 };
