@@ -1,7 +1,7 @@
 class Solution
 {
     public:
-        int solve(int idx, string &s, map<string, int> &mp, vector<int> &dp)
+        int solve(int idx, string &s, unordered_map<string, int> &mp, vector<int> &dp)
         {
             if (idx == s.size())
                 return 1;
@@ -23,7 +23,7 @@ class Solution
     int numDecodings(string s)
     {
         vector<int> dp(s.size() + 1, -1);
-        map<string, int> mp;
+        unordered_map<string, int> mp;
         for (int i = 1; i <= 26; i++)
         {
             string temp = to_string(i);
