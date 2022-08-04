@@ -1,19 +1,19 @@
-class Solution
-{
-    public:
-        int subarraysDivByK(vector<int> &nums, int k)
+class Solution {
+public:
+    //[1,2,1,2] k=3
+    int subarraysDivByK(vector<int>& nums, int k) {
+        int n=nums.size();
+        unordered_map<int,int>mp;
+        mp[0]=1;
+        int sum=0,ans=0;
+        for(int i=0;i<n;i++)
         {
-            int n = nums.size();
-            unordered_map<int, int> mp;
-            int curr_sum = 0, cnt = 0;
-            mp[0] = 1;
-            for (int i = 0; i < n; i++)
-            {
-                curr_sum = (curr_sum+nums[i])%k;
-                int rem = (curr_sum +k)% k;
-                cnt+=mp[rem];
-                mp[rem]++;
-            }
-            return cnt;
+            sum+=nums[i];
+            sum%=k;
+            sum+=k;
+            ans+=mp[sum%k];
+            mp[sum%k]++;
         }
+        return ans;
+    }
 };
