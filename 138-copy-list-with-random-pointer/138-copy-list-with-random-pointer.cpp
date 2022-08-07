@@ -19,38 +19,59 @@ class Solution
     public:
         Node* copyRandomList(Node *head)
         {
-            if (!head)
-                return head;
-            Node *temp = head, *nxt = head->next;
-            while (temp != NULL)
+            map<Node*, Node*> mp;
+            Node *dummy = new Node(-1);
+            Node *temp = dummy;
+            Node *head_copy = head;
+            while (head_copy != NULL)
             {
-                nxt = temp->next;
-                temp->next = new Node(temp->val);
-                temp->next->next = nxt;
-                temp = nxt;
+                Node *new_node = new Node(head_copy->val);
+                temp->next = new_node;
+                temp = new_node;
+                mp[head_copy] = new_node;
+                head_copy=head_copy->next;
             }
+            temp = dummy->next;
+            while (head != NULL)
+            {
+                temp->random = mp[head->random];
+                temp = temp->next;
+                head=head->next;
+            }
+            return dummy->next;
 
-            temp = head;
-            while (temp != NULL)
-            {
-                if (temp->random)
-                    temp->next->random = temp->random->next;
-                temp = temp->next->next;
-            }
-            Node *new_head = head->next;
-            Node *curr = new_head;
-            temp = head;
-            while (temp != NULL)
-            {
-                temp->next = curr->next;
-                temp = curr->next;
-                if (temp)
-                {
-                    curr->next = temp->next;
-                    curr = temp->next;
-                }
-            }
-            return new_head;
+           	//             if (!head)
+           	//                 return head;
+           	//             Node *temp = head, *nxt = head->next;
+           	//             while (temp != NULL)
+           	//             {
+           	//                 nxt = temp->next;
+           	//                 temp->next = new Node(temp->val);
+           	//                 temp->next->next = nxt;
+           	//                 temp = nxt;
+           	//             }
+
+           	//             temp = head;
+           	//             while (temp != NULL)
+           	//             {
+           	//                 if (temp->random)
+           	//                     temp->next->random = temp->random->next;
+           	//                 temp = temp->next->next;
+           	//             }
+           	//             Node *new_head = head->next;
+           	//             Node *curr = new_head;
+           	//             temp = head;
+           	//             while (temp != NULL)
+           	//             {
+           	//                 temp->next = curr->next;
+           	//                 temp = curr->next;
+           	//                 if (temp)
+           	//                 {
+           	//                     curr->next = temp->next;
+           	//                     curr = temp->next;
+           	//                 }
+           	//             }
+           	//             return new_head;
 
            	// O(n) space
 
