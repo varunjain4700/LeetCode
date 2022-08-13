@@ -10,7 +10,7 @@ class Solution
             return 0;
         if (dp[idx][seats] != -1)
             return dp[idx][seats];
-        long long ans = 0;
+        int ans = 0;
         if (seats == 2)
         {
             if (nums[idx] == 'P')
