@@ -19,8 +19,8 @@ class Solution
 		{ 0,
                     0 },
                 0 });
-            bool vis[45][45][1650];
-            int dis[45][45][1650];
+            bool vis[45][45][k + 5];
+            int dis[45][45][k + 5];
             memset(vis, 0, sizeof(vis));
             memset(dis, 0, sizeof(dis));
             vis[0][0][0] = 1;
