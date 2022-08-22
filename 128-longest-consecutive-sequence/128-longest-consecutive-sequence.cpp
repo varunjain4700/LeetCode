@@ -10,21 +10,21 @@ class Solution
             int ans = 0;
             for (int i = 0; i < n; i++)
             {
-                int cnt = 1, element = nums[i] - 1;
-                while (mp.find(element) != mp.end() && mp[element] == 0)
+                int temp = nums[i], len = 1;
+                while (mp.find(temp + 1) != mp.end() && mp[temp + 1] == 0)
                 {
-                    mp[element] = 1;
-                    element--;
-                    cnt++;
+                    len++;
+                    mp[temp + 1] = 1;
+                    temp++;
                 }
-                element = nums[i] + 1;
-                while (mp.find(element) != mp.end() && mp[element] == 0)
+                temp = nums[i];
+                while (mp.find(temp - 1) != mp.end() && mp[temp - 1] == 0)
                 {
-                    mp[element] = 1;
-                    element++;
-                    cnt++;
+                    len++;
+                    mp[temp - 1] = 1;
+                    temp--;
                 }
-                ans = max(ans, cnt);
+                ans = max(ans, len);
             }
             return ans;
         }
