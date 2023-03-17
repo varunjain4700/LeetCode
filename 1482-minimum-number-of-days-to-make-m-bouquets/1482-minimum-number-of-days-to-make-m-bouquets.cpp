@@ -25,15 +25,18 @@ class Solution
         int n = bloomDay.size();
         if ((long long) m * k > n)
             return -1;
-        int low = 1, high = 1e9;
-        while (low < high)
+        int low = 1, high = 1e9, ans = 1;
+        while (low <= high)
         {
             int mid = (low + high) / 2;
             if (solve(bloomDay, mid, m, k))
-                high = mid;
+            {
+                ans = mid;
+                high = mid - 1;
+            }
             else
                 low = mid + 1;
         }
-        return low;
+        return ans;
     }
 };
