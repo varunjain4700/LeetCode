@@ -1,51 +1,36 @@
 class Solution
 {
     public:
-       	//Seems like a DSU problem.Lets try.
-        vector<int> par, sz;
-    void initialise(int n)
-    {
-        par.resize(n);
-        sz.resize(n);
-        for (int i = 0; i < n; i++)
+        void dfs(int src, vector<vector < int>> &adj, vector< int > &vis)
         {
-            par[i] = i;
-            sz[i] = 1;
-        }
-    }
-    int find(int x)
-    {
-        if (x == par[x])
-            return x;
-        return par[x] = find(par[x]);
-    }
-    void make_union(int x, int y)
-    {
-        x = find(x);
-        y = find(y);
-        if (sz[y] > sz[x])
-            swap(x, y);
-        sz[x] += sz[y];
-        par[y] = x;
-    }
-    int makeConnected(int n, vector<vector < int>> &edges)
-    {
-        if (edges.size() < n - 1)
-            return -1;
-        initialise(n);
-        for (int i = 0; i < edges.size(); i++)
-        {
-            if (find(edges[i][0]) != find(edges[i][1]))
+            vis[src] = 1;
+            for (auto child: adj[src])
             {
-                make_union(edges[i][0], edges[i][1]);
+                if (!vis[child])
+                    dfs(child, adj, vis);
             }
         }
-        int cnt = 0;
-        for (int i = 0; i < n; i++)	//finding no. of connected components
+    int makeConnected(int n, vector<vector < int>> &connections)
+    {
+        int numOfCables = connections.size();
+        if (numOfCables < n - 1)
+            return -1;
+        vector<vector < int>> adj(n);
+        for (int i = 0; i < numOfCables; i++)
         {
-            if (par[i] == i)
-                cnt++;
+            adj[connections[i][0]].push_back(connections[i][1]);
+            adj[connections[i][1]].push_back(connections[i][0]);
         }
-        return cnt - 1;
+        int connectedComponents = 0;
+        vector<int> vis(n, 0);
+        for (int i = 0; i < n; i++)
+        {
+            if (!vis[i])
+            {
+                dfs(i, adj, vis);
+                connectedComponents++;
+            }
+        }
+        return connectedComponents - 1;
     }
 };
