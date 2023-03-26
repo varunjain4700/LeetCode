@@ -7,16 +7,18 @@ class Solution
             dfs_vis[src] = 1;
             cnt[src] = time;
             time++;
-           	 // cout<<src<<"-"<<cycle_length<<"--"<<cnt[src]<<endl;
+           	// cout<<src<<"-"<<cycle_length<<"--"<<cnt[src]<<endl;
             for (auto child: adj[src])
             {
                 if (!vis[child])
-                     dfs(child, adj, vis, dfs_vis, cycle_length + 1, ans, cnt, time);
+                {
+                    dfs(child, adj, vis, dfs_vis, cycle_length + 1, ans, cnt, time);
+                }
                 else
                 {
                     if (dfs_vis[child])
                     {
-                        // cout<<child<<endl;
+                       	// cout<<child<<endl;
                         ans = max(ans, cycle_length + 1 - cnt[child]);
                     }
                 }
