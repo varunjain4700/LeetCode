@@ -9,7 +9,7 @@ class Solution
                 return true;
             if (n <= 1)
                 return false;
-            string key = s1 + " " + s2;
+            string key = s1 + s2;
             if (mp.find(key) != mp.end())
                 return mp[key];
             for (int i = 1; i < n; i++)
