@@ -26,21 +26,21 @@ class Solution
         if (dp[x][y][k] != -1)
             return dp[x][y][k];
         long long ans = 0;
-        for (int i = 1; i <= rows; i++)
+        for (int i = x + 1; i <= rows; i++)
         {
-            int numberOfApples = find(x, y, x + i - 1, cols, cnt, rows, cols);
+            int numberOfApples = find(x, y, i - 1, cols, cnt, rows, cols);
             if (numberOfApples > 0)
             {
-                ans += solve(x + i, y, k - 1, rows, cols, pizza, cnt);
+                ans += solve(i, y, k - 1, rows, cols, pizza, cnt);
                 ans %= mod;
             }
         }
-        for (int i = 1; i <= cols; i++)
+        for (int i = y + 1; i <= cols; i++)
         {
-            int numberOfApples = find(x, y, rows, y + i - 1, cnt, rows, cols);
+            int numberOfApples = find(x, y, rows, i - 1, cnt, rows, cols);
             if (numberOfApples > 0)
             {
-                ans += solve(x, y + i, k - 1, rows, cols, pizza, cnt);
+                ans += solve(x, i, k - 1, rows, cols, pizza, cnt);
                 ans %= mod;
             }
         }
